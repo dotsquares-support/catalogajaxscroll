@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+  <system>
+    <tab id="Dotsquares" translate="label" sortOrder="100">
+      <label>Dotsquares Infinite Ajax Scroll</label>
+    </tab>
+    <section id="ajaxscroll" translate="label" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="1">
+      <label>Ajax Scroll</label>
+      <tab>Dotsquares</tab>
+      <resource>Dotsquares_Ajaxscroll::system_config</resource>
+      <group id="general" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+        <label>General</label>
+        <field id="enabled" translate="label" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Enable Infinite Ajax Scoll</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="enabled_top" translate="label" sortOrder="1" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Enable ScrollUp Button</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="topb_icon" translate="label comment" sortOrder="10" type="image" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>ScrollUp Button Icon</label>
+          <backend_model>Magento\Config\Model\Config\Backend\Image</backend_model>
+          <upload_dir config="system/filesystem/media" scope_info="1">Dotsquares/ajaxscroll</upload_dir>
+          <base_url type="media" scope_info="1">Dotsquares/ajaxscroll</base_url>
+		  <comment>Please upload(32*32) size icon.</comment>
+        </field>
+        <field id="loading_icon" translate="label comment" sortOrder="11" type="image" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Loading Image</label>
+          <backend_model>Magento\Config\Model\Config\Backend\Image</backend_model>
+          <upload_dir config="system/filesystem/media" scope_info="1">Dotsquares/ajaxscroll</upload_dir>
+          <base_url type="media" scope_info="1">Dotsquares/ajaxscroll</base_url>
+		  <comment>Please upload(450*150) size image.</comment>
+        </field>
+      </group>
+    </section>
+  </system>
+</config>

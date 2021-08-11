@@ -1,0 +1,65 @@
+<?php if (\Magento\Framework\App\ObjectManager::getInstance()->get('Magento\Framework\App\Config\ScopeConfigInterface')->isSetFlag('ajaxscroll/general/enabled')): ?>
+<?php
+	$topbuttonimage = \Magento\Framework\App\ObjectManager::getInstance()->get('Magento\Framework\UrlInterface')->getBaseUrl().'pub/media/Dotsquares/ajaxscroll/'.\Magento\Framework\App\ObjectManager::getInstance()->get('Magento\Framework\App\Config\ScopeConfigInterface')->getValue('ajaxscroll/general/topb_icon');	
+	$loadingimage = \Magento\Framework\App\ObjectManager::getInstance()->get('Magento\Framework\UrlInterface')->getBaseUrl().'pub/media/Dotsquares/ajaxscroll/'.\Magento\Framework\App\ObjectManager::getInstance()->get('Magento\Framework\App\Config\ScopeConfigInterface')->getValue('ajaxscroll/general/loading_icon');
+?>
+<?php 
+// Get the default setting for grid or list mode 
+$productpagelistmode = \Magento\Framework\App\ObjectManager::getInstance()->get('Magento\Framework\App\Config\ScopeConfigInterface')->getValue('catalog/frontend/list_mode');
+$gridmodeitem = \Magento\Framework\App\ObjectManager::getInstance()->get('Magento\Framework\App\Config\ScopeConfigInterface')->getValue('catalog/frontend/grid_per_page');
+$listmodeitem = \Magento\Framework\App\ObjectManager::getInstance()->get('Magento\Framework\App\Config\ScopeConfigInterface')->getValue('catalog/frontend/list_per_page');
+if ($productpagelistmode == 'grid-list'){
+	$productpagelistmode = 'grid';
+	$perpageitem = $gridmodeitem;
+}elseif($productpagelistmode == 'list-grid'){
+	$productpagelistmode = 'list';
+	$perpageitem = $listmodeitem;
+}	
+// Check if this setting is overwritten by the user
+if ($this->getRequest()->getParam('mode')) {
+	if($this->getRequest()->getParam('mode') == 'grid'){
+		$productpagelistmode = 'grid';
+		$perpageitem = $gridmodeitem;
+	}else{
+		$productpagelistmode = 'list';
+		$perpageitem = $listmodeitem;
+	}
+}
+?>
+<?php if (\Magento\Framework\App\ObjectManager::getInstance()->get('Magento\Framework\App\Config\ScopeConfigInterface')->getValue('ajaxscroll/general/enabled_top')){ ?>
+<script type="text/javascript">
+sh.noConflict();
+sh(document).ready(function() {
+	sh().UItoTop({ easingType: 'easeOutQuart' });
+	
+});
+</script>
+<?php }?>
+<script type="text/javascript">
+sh(document).ready(function() {
+	sh.ajaxscroll({
+		container : '.column',
+		<?php if ($productpagelistmode == 'grid'): ?>
+		item: '.product-item',
+		<?php else: ?>
+		item: '.product-item',
+		<?php endif; ?>
+		pagination: '.pages .item',
+		next: '.next',
+		loader: '<img class="scroll_loading" src="<?php echo $loadingimage; ?>" />'
+	});
+	sh(".limiter").css("display", "none");
+});
+</script>
+<?php endif; ?>
+
+<style>
+#toTop {
+ 
+	background:url(<?php echo $topbuttonimage ?>) no-repeat left top;
+}
+
+#toTopHover {
+	background:url(<?php echo $topbuttonimage ?>) no-repeat left -51px;
+}
+</style>
